@@ -1,0 +1,282 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: #050505;
+    --foreground: #eaeaea;
+    --neon-primary: #00ff88;
+    --neon-secondary: #6f00ff;
+    --neon-accent: #ff003c;
+    --glass-bg: rgba(10, 10, 10, 0.5);
+    --glass-border: rgba(255, 255, 255, 0.06);
+  }
+
+  body {
+    @apply bg-[#050505] text-[#eaeaea] antialiased overflow-x-hidden;
+    font-family: 'Inter', system-ui, sans-serif;
+    cursor: none;
+  }
+
+  ::selection {
+    background-color: var(--neon-primary);
+    color: #000;
+  }
+}
+
+@layer utilities {
+  /* Glow utilities — use sparingly */
+  .text-glow-primary {
+    text-shadow: 0 0 12px rgba(0, 255, 136, 0.5);
+  }
+  .text-glow-secondary {
+    text-shadow: 0 0 12px rgba(111, 0, 255, 0.5);
+  }
+  .box-glow-primary {
+    box-shadow: 0 0 16px rgba(0, 255, 136, 0.25);
+  }
+  .box-glow-secondary {
+    box-shadow: 0 0 16px rgba(111, 0, 255, 0.25);
+  }
+
+  /* Glass panel — lighter blur than before */
+  .glass-panel {
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+  }
+
+  /* Grain texture */
+  .bg-noise {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    pointer-events: none;
+  }
+
+  /* Scanlines — very subtle */
+  .scanlines {
+    background: repeating-linear-gradient(
+      to bottom,
+      transparent 0px,
+      transparent 3px,
+      rgba(0, 0, 0, 0.08) 3px,
+      rgba(0, 0, 0, 0.08) 4px
+    );
+    pointer-events: none;
+  }
+
+  /* Hover trigger for cursor */
+  .hover-trigger { cursor: none; }
+
+  /* ── CINEMATIC CARD HOVER LIGHT ──────────────────────────────────
+     Cards emit a soft inset glow on hover — no JS, pure CSS.
+     Usage: add class to a card's ::before pseudo-element layer.
+  ───────────────────────────────────────────────────────────────── */
+  .card-glow {
+    position: relative;
+    overflow: hidden;
+  }
+  .card-glow::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 50% 0%, rgba(0,255,136,0.10) 0%, transparent 65%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .card-glow:hover::before { opacity: 1; }
+
+  /* ── GLOW LINK — underline grows from centered point ─────────────
+     Usage: add class to <a> or inline text link elements.
+  ───────────────────────────────────────────────────────────────── */
+  .glow-link {
+    position: relative;
+    display: inline-block;
+  }
+  .glow-link::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: -1px;
+    width: 0;
+    height: 1px;
+    background: var(--neon-primary);
+    transition: width 0.25s ease, left 0.25s ease;
+    box-shadow: 0 0 6px rgba(0,255,136,0.5);
+  }
+  .glow-link:hover::after {
+    width: 100%;
+    left: 0;
+  }
+
+  /* ── SECTION ENTRY ── standard fade+rise, matches whileInView ─── */
+  .section-enter {
+    @apply opacity-0 translate-y-5;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .section-enter.visible {
+    @apply opacity-100 translate-y-0;
+  }
+}
+
+/* ============================================
+   HIGH-IMPACT BURST ANIMATIONS
+   Only triggered on interaction, never looping
+============================================ */
+
+/* Glitch burst — CSS class toggled on click */
+@keyframes glitch-burst {
+  0%   { transform: translate(0); clip-path: inset(0); }
+  10%  { transform: translate(-3px, 2px); clip-path: inset(10% 0 85% 0); }
+  20%  { transform: translate(3px, -2px); clip-path: inset(50% 0 30% 0); }
+  30%  { transform: translate(-2px, 1px); clip-path: inset(80% 0 5% 0); }
+  40%  { transform: translate(0); clip-path: inset(0); opacity: 0.8; }
+  50%  { transform: translate(2px, -1px); filter: hue-rotate(90deg); }
+  70%  { transform: translate(0); filter: hue-rotate(0deg); }
+  100% { transform: translate(0); clip-path: inset(0); opacity: 1; }
+}
+.glitch-burst {
+  animation: glitch-burst 0.25s ease forwards;
+}
+
+/* RGB split for track switch */
+@keyframes rgb-split {
+  0%   { text-shadow: -4px 0 var(--neon-accent), 4px 0 var(--neon-primary); opacity: 0.6; }
+  33%  { text-shadow: 4px 0 var(--neon-accent), -4px 0 var(--neon-primary); opacity: 1; }
+  66%  { text-shadow: -2px 0 var(--neon-accent), 2px 0 var(--neon-primary); }
+  100% { text-shadow: none; opacity: 1; }
+}
+.rgb-split {
+  animation: rgb-split 0.3s ease forwards;
+}
+
+/* Screen flash on click */
+@keyframes screen-flash {
+  0%   { opacity: 0; }
+  20%  { opacity: 0.12; }
+  100% { opacity: 0; }
+}
+.screen-flash {
+  animation: screen-flash 0.25s ease forwards;
+}
+
+/* Glow pulse — one-shot on interaction */
+@keyframes glow-pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(0,255,136,0); }
+  40%  { box-shadow: 0 0 0 12px rgba(0,255,136,0.2); }
+  100% { box-shadow: 0 0 0 0 rgba(0,255,136,0); }
+}
+.glow-pulse {
+  animation: glow-pulse 0.5s ease forwards;
+}
+
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: #050505; }
+  ::-webkit-scrollbar-thumb { background: #1a1a28; border-radius: 2px; }
+  ::-webkit-scrollbar-thumb:hover { background: var(--neon-primary); }
+
+/* ── PFP LIGHT SWEEP ────────────────────────────────────────────────────────
+   A glossy highlight light sweeps across the avatar on hover.
+   Purely CSS pseudo-element, triggered by .swept class toggled via React.
+   No JS animation loop — one-shot CSS transition.
+──────────────────────────────────────────────────────────────────────────── */
+@keyframes pfp-sweep {
+  0%   { transform: translateX(-100%) skewX(-12deg); opacity: 0; }
+  15%  { opacity: 0.4; }
+  80%  { opacity: 0.15; }
+  100% { transform: translateX(200%) skewX(-12deg); opacity: 0; }
+}
+.pfp-hover-sweep::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.12) 50%, transparent 60%);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 30;
+  transition: opacity 0.3s;
+}
+.pfp-hover-sweep:hover::after {
+  animation: pfp-sweep 0.9s ease forwards;
+}
+
+/* ── BACKGROUND GRADIENT DRIFT ───────────────────────────────────────────────
+   30–35s cycle, barely perceptible X/Y drift on the ambient glow blobs.
+   Pure CSS transform — zero JS, zero layout cost.
+──────────────────────────────────────────────────────────────────────────── */
+@keyframes bg-drift-anim {
+  0%   { transform: translate(0, 0) scale(1); }
+  33%  { transform: translate(2%, 1.5%) scale(1.02); }
+  66%  { transform: translate(-1.5%, 2%) scale(0.98); }
+  100% { transform: translate(0, 0) scale(1); }
+}
+@keyframes bg-drift-reverse-anim {
+  0%   { transform: translate(0, 0) scale(1); }
+  33%  { transform: translate(-2%, -1%) scale(0.97); }
+  66%  { transform: translate(1%, -2%) scale(1.02); }
+  100% { transform: translate(0, 0) scale(1); }
+}
+.bg-drift         { animation: bg-drift-anim 30s ease-in-out infinite; }
+.bg-drift-reverse { animation: bg-drift-reverse-anim 35s ease-in-out infinite; }
+
+/* ── MICRO-ANIMATION UTILITIES ───────────────────────────────────────────────
+   Lightweight CSS-only helpers for icons, cards, and interactive elements.
+   Use transform + opacity only. No layout properties animated.
+──────────────────────────────────────────────────────────────────────────── */
+
+/* Icon: scale + neon glow on hover */
+.icon-hover {
+  transition: transform 0.2s cubic-bezier(0.16,1,0.3,1), filter 0.2s ease;
+}
+.icon-hover:hover {
+  transform: scale(1.14);
+  filter: drop-shadow(0 0 6px rgba(0,255,136,0.55));
+}
+
+/* Card: translateY lift on hover (CSS-only for non-framer cards) */
+.card-lift {
+  transition: transform 0.25s cubic-bezier(0.16,1,0.3,1), box-shadow 0.25s ease;
+}
+.card-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.4), 0 0 20px rgba(0,255,136,0.07);
+}
+
+/* Button: active-state brief scale-down (complements JS whileTap) */
+.btn-press:active {
+  transform: scale(0.96);
+  transition: transform 0.1s ease;
+}
+
+/* Tag: hover lift for static (non-framer) skill pills */
+.tag-lift {
+  transition: transform 0.18s cubic-bezier(0.16,1,0.3,1), color 0.18s ease, box-shadow 0.18s ease;
+}
+.tag-lift:hover {
+  transform: translateY(-2px) scale(1.04);
+}
+
+/* ── ENERGY RINGS — slow concentric pulse behind PFP ─────────────────────────
+   Pure CSS — no JS. Scale + opacity only. 9s loop with staggered delays.
+──────────────────────────────────────────────────────────────────────────── */
+@keyframes energy-ring-pulse {
+  0%   { transform: scale(0.75); opacity: 0; }
+  30%  { opacity: 0.22; }
+  70%  { opacity: 0.08; }
+  100% { transform: scale(1.1); opacity: 0; }
+}
+.energy-ring {
+  animation: energy-ring-pulse 9s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+/* ── PAGE VIGNETTE — fixed overlay, dark edges ────────────────────────────────
+   Draws eye toward center. Pointer-events:none so never blocks interaction.
+──────────────────────────────────────────────────────────────────────────── */
+.vignette {
+  background: radial-gradient(ellipse at 50% 50%, transparent 55%, rgba(0,0,0,0.65) 100%);
+  pointer-events: none;
+}
