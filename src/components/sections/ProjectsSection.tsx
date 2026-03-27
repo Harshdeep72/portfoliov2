@@ -8,6 +8,7 @@ const TRACKS = [
   {
     id: '01',
     title: 'SYN Flood Attack Simulation',
+    repo: 'https://github.com/Harshdeep72/SYN-Flood-Lab',
     duration: '04:15',
     tags: ['Python', 'Scapy', 'Wireshark', 'hping3', 'Metasploit', 'Networking'],
     caseStudy: {
@@ -29,6 +30,7 @@ const TRACKS = [
   {
     id: '02',
     title: 'Contact Management System',
+    repo: 'https://github.com/Harshdeep72/CMS',
     duration: '02:30',
     tags: ['C++', 'DSA', 'File Handling', 'CLI'],
     caseStudy: {
@@ -211,15 +213,26 @@ export default function ProjectsSection() {
               style={{ borderColor: 'var(--neon-primary)', color: 'var(--neon-primary)' }}>
               {isPlaying ? <Pause className="w-3.5 h-3.5" /> : <Play className="w-3.5 h-3.5 ml-0.5" />}
             </button>
-            <div>
-              <p className="text-[9px] font-orbitron tracking-[0.3em] uppercase mb-0.5" style={{ color: 'var(--neon-secondary)' }}>Now Reviewing / Case Study</p>
-              <AnimatePresence mode="wait">
-                <motion.h3 key={track.id} ref={titleRef}
-                  initial={{ opacity: 0, y: 5, filter: 'blur(4px)' }} animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }} exit={{ opacity: 0, y: -4, filter: 'blur(6px)' }}
-                  transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
-                  className="text-base md:text-lg font-black font-orbitron uppercase tracking-tighter text-white">{track.title}
-                </motion.h3>
-              </AnimatePresence>
+            <div className="flex-1 flex items-start justify-between gap-4">
+              <div>
+                <p className="text-[9px] font-orbitron tracking-[0.3em] uppercase mb-0.5" style={{ color: 'var(--neon-secondary)' }}>Now Reviewing / Case Study</p>
+                <AnimatePresence mode="wait">
+                  <motion.h3 key={track.id} ref={titleRef}
+                    initial={{ opacity: 0, y: 5, filter: 'blur(4px)' }} animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }} exit={{ opacity: 0, y: -4, filter: 'blur(6px)' }}
+                    transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+                    className="text-base md:text-lg font-black font-orbitron uppercase tracking-tighter text-white">{track.title}
+                  </motion.h3>
+                </AnimatePresence>
+              </div>
+              {track.repo && (
+                <a href={track.repo} target="_blank" rel="noopener noreferrer"
+                  className="hidden sm:flex items-center gap-1.5 font-mono text-[9px] uppercase tracking-widest px-3 py-1.5 border rounded-sm hover-trigger flex-shrink-0"
+                  style={{ borderColor: 'rgba(255,255,255,0.1)', color: 'rgba(255,255,255,0.5)', background: 'rgba(0,0,0,0.3)' }}
+                  onMouseEnter={e => { (e.currentTarget.style.borderColor = 'var(--neon-primary)'); (e.currentTarget.style.color = 'var(--neon-primary)'); }}
+                  onMouseLeave={e => { (e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)'); (e.currentTarget.style.color = 'rgba(255,255,255,0.5)'); }}>
+                  <Terminal className="w-3 h-3" /> View Source
+                </a>
+              )}
             </div>
           </div>
 

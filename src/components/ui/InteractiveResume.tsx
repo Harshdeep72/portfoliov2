@@ -25,6 +25,7 @@ const PROJECTS = [
   {
     id: 'syn',
     title: 'SYN Flood Attack Simulation',
+    repo: 'https://github.com/Harshdeep72/SYN-Flood-Lab',
     type: 'NETWORK SECURITY',
     color: '#22d3ee',
     problem: 'Demonstrate TCP half-open connection exhaustion to understand DoS attack mechanics.',
@@ -40,6 +41,7 @@ const PROJECTS = [
   {
     id: 'cms',
     title: 'Contact Management System',
+    repo: 'https://github.com/Harshdeep72/CMS',
     type: 'SYSTEMS & DSA',
     color: 'var(--neon-primary)',
     problem: 'Build an efficient CLI-based contact manager applying core DSA principles in C.',
@@ -172,7 +174,18 @@ function ProjectCard({ p }: { p: typeof PROJECTS[0] }) {
           >
             <div className="px-4 pb-4 flex flex-col gap-3 border-t" style={{ borderColor: 'rgba(255,255,255,0.05)' }}>
               <div className="pt-3">
-                <p className="font-orbitron text-[8px] uppercase tracking-widest mb-1" style={{ color: p.color }}>Problem</p>
+                <div className="flex items-center justify-between mb-1">
+                  <p className="font-orbitron text-[8px] uppercase tracking-widest" style={{ color: p.color }}>Problem</p>
+                  {p.repo && (
+                    <a href={p.repo} target="_blank" rel="noopener noreferrer" 
+                      className="flex items-center gap-1.5 font-mono text-[9px] hover-trigger" 
+                      style={{ color: p.color, opacity: 0.8 }}
+                      onMouseEnter={e => (e.currentTarget.style.opacity = '1')}
+                      onMouseLeave={e => (e.currentTarget.style.opacity = '0.8')}>
+                      <ExternalLink className="w-3 h-3" /> View Source
+                    </a>
+                  )}
+                </div>
                 <p className="text-neutral-400 text-xs leading-relaxed">{p.problem}</p>
               </div>
               <div>

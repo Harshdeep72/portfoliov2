@@ -1,0 +1,45 @@
+Initialized empty Git repository in /home/harshdeep/Projects/portfoliov2/.git/
+[master (root-commit) 1d279c7] feat: cinematic cyberpunk portfolio — full build
+ 42 files changed, 8050 insertions(+)
+ create mode 100644 .gitignore
+ create mode 100644 README.md
+ create mode 100644 eslint.config.js
+ create mode 100644 index.html
+ create mode 100644 package-lock.json
+ create mode 100644 package.json
+ create mode 100644 postcss.config.js
+ create mode 100644 public/beat.mp3
+ create mode 100644 public/cv_harshdeep (2).pdf
+ create mode 100644 public/favicon.svg
+ create mode 100644 public/icons.svg
+ create mode 100644 src/App.css
+ create mode 100644 src/App.tsx
+ create mode 100644 src/assets/hero.png
+ create mode 100644 src/assets/react.svg
+ create mode 100644 src/assets/vite.svg
+ create mode 100644 src/components/layout/AudioVisualizer.tsx
+ create mode 100644 src/components/layout/CursorGlow.tsx
+ create mode 100644 src/components/layout/CustomCursor.tsx
+ create mode 100644 src/components/layout/SoundToggle.tsx
+ create mode 100644 src/components/layout/SystemStatus.tsx
+ create mode 100644 src/components/sections/AboutSection.tsx
+ create mode 100644 src/components/sections/AchievementsSection.tsx
+ create mode 100644 src/components/sections/ContactSection.tsx
+ create mode 100644 src/components/sections/EducationSection.tsx
+ create mode 100644 src/components/sections/ExperienceSection.tsx
+ create mode 100644 src/components/sections/HeroSection.tsx
+ create mode 100644 src/components/sections/ProjectsSection.tsx
+ create mode 100644 src/components/sections/SkillsSection.tsx
+ create mode 100644 src/components/ui/CinematicPFP.tsx
+ create mode 100644 src/components/ui/InteractiveResume.tsx
+ create mode 100644 src/components/ui/Magnetic.tsx
+ create mode 100644 src/components/ui/ResumeModal.tsx
+ create mode 100644 src/components/ui/TiltCard.tsx
+ create mode 100644 src/context/AudioContext.tsx
+ create mode 100644 src/index.css
+ create mode 100644 src/main.tsx
+ create mode 100644 tailwind.config.js
+ create mode 100644 tsconfig.app.json
+ create mode 100644 tsconfig.json
+ create mode 100644 tsconfig.node.json
+ create mode 100644 vite.config.ts
