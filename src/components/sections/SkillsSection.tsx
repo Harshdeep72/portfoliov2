@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Shield, Code2, Wrench, Brain } from 'lucide-react';
+import { Shield, Code2, Wrench, Brain, Users } from 'lucide-react';
 
 // ─── DATA ─────────────────────────────────────────────────────────────────
 const CATEGORIES = [
@@ -88,6 +88,25 @@ const CATEGORIES = [
       'Cryptography',
       'OSINT',
       'DSA',
+    ],
+  },
+  {
+    id: 'soft-skills',
+    icon: Users,
+    title: 'Operational / Soft Skills',
+    subtitle: 'Interpersonal & workflow',
+    accent: '#facc15',        // yellow
+    border: 'rgba(250,204,21,0.22)',
+    tagBg: 'rgba(250,204,21,0.08)',
+    tagBorder: 'rgba(250,204,21,0.25)',
+    glowColor: 'rgba(250,204,21,0.14)',
+    tags: [
+      'Problem Solving',
+      'Analytical Thinking',
+      'Adaptability',
+      'Team Collaboration',
+      'Time Management',
+      'Communication',
     ],
   },
 ];

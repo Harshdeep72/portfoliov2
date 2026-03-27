@@ -8,7 +8,7 @@ import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   X, Download, FileText, ExternalLink, Mail,
-  ChevronDown, Shield, Code2, BookOpen, Award, Briefcase,
+  ChevronDown, Shield, Code2, BookOpen, Award, Briefcase, Users
 } from 'lucide-react';
 
 const PDF_PATH = '/cv_harshdeep (2).pdf';
@@ -74,6 +74,12 @@ const SKILLS_GROUPS = [
     label: 'Knowledge',
     color: 'var(--neon-secondary)',
     skills: ['OWASP Top 10', 'VAPT', 'Network Security', 'Cryptography', 'OSINT', 'DSA'],
+  },
+  {
+    icon: Users,
+    label: 'Soft Skills',
+    color: '#facc15',
+    skills: ['Problem Solving', 'Adaptability', 'Team Player', 'Communication', 'Analytical Thinking'],
   },
 ];
 
@@ -378,7 +384,7 @@ export default function InteractiveResume({ isOpen, onClose, onSwitchToPdf }: Pr
                       <Shield className="w-4 h-4" style={{ color: 'var(--neon-primary)' }} />
                       <p className="font-orbitron font-black text-xs uppercase tracking-widest text-white">Arsenal</p>
                     </motion.div>
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
                       {SKILLS_GROUPS.map((g, i) => {
                         const Icon = g.icon;
                         return (
